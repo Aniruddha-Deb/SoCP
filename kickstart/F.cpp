@@ -2,11 +2,12 @@
 using namespace std;
 
 #define MOD 1000000007
+#define int long long
 
 typedef long long ll;
 typedef vector<int> vi;
 
-int main() {
+signed main() {
 	int n, k;
 	cin >> n >> k;
 	vector<bool> students(n,false);
