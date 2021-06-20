@@ -2,39 +2,40 @@
 using namespace std;
 
 #define MOD 1000000007
-#define int long long
 
 typedef long long ll;
 typedef vector<int> vi;
 
-signed main() {
+int main() {
 	int n, k;
 	cin >> n >> k;
-	vector<bool> students(n,false);
+	vi A(n);
 
 	ll ans = 1;
-	for (int i=0; i<n; i++) {
-		int temp;
-		cin >> temp;
-		if (temp) students[i] = true;
-	}
-	int num = count(students.begin(), students.end(), true);
+	for (int i=0; i<n; i++) cin >> A[i];
+	int num = count(A.begin(), A.end(), 1);
 
-	int ssum = 0;
-	int ns = 0;
+	int n1 = 0;
+	int n0 = 0;
 	for (int i=0; i<n; i++) {
-		if (ssum % k == 0 && ssum != 0 && ssum != num) {
-			while (i < n && !students[i]) {
-				ns++;
-				i++;
+		if (A[i]) {
+			if (n0 != 0) {
+				n0++;
+				ans = ((ans%MOD)*(n0%MOD))%MOD;
+				n0 = 0;
 			}
-			ns++;
-			ans = ((ans%MOD)*(ns%MOD))%MOD;
-			ns = 0;
+			n1++;
 		}
-		if (students[i]) {
-			ssum++;
+		else {
+			if (n1%k == 0 && n1 != 0 && n1 != num) {
+				n0++;
+			}
 		}
+	}
+	if (n0 != 0) {
+		n0++;
+		ans = ((ans%MOD)*(n0%MOD))%MOD;
+		n0 = 0;
 	}
 
 	cout << ans << endl;
